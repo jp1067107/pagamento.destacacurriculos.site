@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento - Destaca Currículos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; }
+        .bg-navy { background-color: #001A3D; }
+        .text-gold { color: #C5A059; }
+        .bg-gold { background-color: #C5A059; }
+        .border-gold { border-color: #C5A059; }
+        .gradient-gold { background: linear-gradient(135deg, #C5A059 0%, #E8D099 50%, #C5A059 100%); }
+    </style>
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '780585197508218'); // Substitua pelo ID do Pixel
+      fbq('track', 'PageView'); // Mantém o rastreamento de visualização de página
+      fbq('track', 'Purchase', {
+        value: 23.00, // Valor ajustado para corresponder ao preço da página
+        currency: 'BRL' // Substitua pelo código da moeda (ex.: USD, EUR, BRL)
+      });
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=780585197508218&ev=Purchase&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+<body class="bg-gray-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header Simples -->
+    <header class="bg-white border-b border-gray-100 py-4 shadow-sm">
+        <div class="container mx-auto px-4 flex justify-center">
+            <div class="flex items-center gap-2">
+                <i data-lucide="award" class="text-gold w-8 h-8"></i>
+                <span class="text-navy font-black text-xl tracking-tighter uppercase">Destaca <span class="text-gold">Currículos</span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="max-w-md w-full">
+            <div class="bg-navy rounded-[2.5rem] p-8 md:p-10 border-4 border-gold shadow-2xl relative overflow-hidden">
+                <!-- Efeito de Fundo -->
+                <div class="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
+                    <i data-lucide="check-circle" class="w-48 h-48 text-white"></i>
+                </div>
+
+                <div class="relative z-10 text-center">
+                    <div class="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i data-lucide="check" class="text-navy w-10 h-10 stroke-[3px]"></i>
+                    </div>
+
+                    <h1 class="text-3xl font-black text-white mb-2 leading-tight uppercase">
+                        Quase Pronto!
+                    </h1>
+                    <p class="text-slate-300 mb-8 font-light">
+                        Realize o pagamento para liberar seu pacote de currículos premium.
+                    </p>
+
+                    <!-- Card de Pagamento -->
+                    <div class="bg-white rounded-3xl p-6 shadow-xl border-t-8 border-gold mb-8">
+                        <p class="text-navy font-bold text-xs uppercase mb-1">Total a pagar</p>
+                        <div class="flex items-baseline justify-center gap-1 mb-6">
+                            <span class="text-navy font-bold text-lg">R$</span>
+                            <span class="text-navy font-black text-5xl tracking-tighter">23</span>
+                            <span class="text-navy font-bold text-lg">,00</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="text-left">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase ml-2">Chave PIX (E-mail)</label>
+                                <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 p-3 rounded-xl mt-1">
+                                    <input type="text" readonly value="jp1067103@gmail.com" id="pixKey" class="bg-transparent border-none outline-none text-navy font-bold text-sm flex-grow">
+                                    <button onclick="copyPix()" class="bg-navy text-white p-2 rounded-lg hover:bg-slate-800 transition active:scale-95" title="Copiar Chave">
+                                        <i data-lucide="copy" class="w-4 h-4" id="copyIcon"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-center gap-2 text-slate-500 text-xs italic">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-green-500"></i>
+                                Pagamento 100% Seguro
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Instruções -->
+                    <div class="space-y-4">
+                        <p class="text-white text-sm font-medium">
+                            <i data-lucide="info" class="inline-block w-4 h-4 text-gold mr-1 align-text-bottom"></i>
+                            Após o pagamento, envie o comprovante no WhatsApp para ativação imediata.
+                        </p>
+                        <a href="https://wa.me/553287167287?text=Olá! Já realizei o pagamento via PIX, aqui está o comprovante." class="gradient-gold text-navy w-full py-4 rounded-2xl font-black text-lg hover:scale-105 transition transform duration-300 flex items-center justify-center gap-3 shadow-lg">
+                            <i data-lucide="message-circle" class="w-6 h-6"></i>
+                            ENVIAR COMPROVANTE
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <p class="text-center text-slate-400 text-[10px] mt-8 uppercase tracking-widest font-bold">
+                &copy; 2026 Destaca Currículos - Todos os direitos reservados.
+            </p>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        function copyPix() {
+            const pixInput = document.getElementById('pixKey');
+            const copyIcon = document.getElementById('copyIcon');
+            
+            pixInput.select();
+            pixInput.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(pixInput.value).then(() => {
+                // Feedback visual
+                const originalIcon = copyIcon.getAttribute('data-lucide');
+                lucide.createIcons({
+                    icons: {
+                        'check-check': copyIcon
+                    }
+                });
+                copyIcon.classList.add('text-green-400');
+                
+                setTimeout(() => {
+                    copyIcon.classList.remove('text-green-400');
+                    lucide.createIcons();
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
