@@ -35,7 +35,7 @@
       function trackPurchase() {
         if (!localStorage.getItem('destaca_p_fired_v1')) {
           fbq('track', 'Purchase', {
-            value: 23.00,
+            value: 33.00,
             currency: 'BRL'
           });
           localStorage.setItem('destaca_p_fired_v1', 'true');
@@ -102,7 +102,7 @@
                         <p class="text-navy font-bold text-[10px] md:text-xs uppercase mb-1">Total a pagar</p>
                         <div class="flex items-baseline justify-center gap-1 mb-4 md:mb-6">
                             <span class="text-navy font-bold text-base md:text-lg">R$</span>
-                            <span class="text-navy font-black text-4xl md:text-5xl tracking-tighter">23</span>
+                            <span class="text-navy font-black text-4xl md:text-5xl tracking-tighter">33</span>
                             <span class="text-navy font-bold text-base md:text-lg">,00</span>
                         </div>
 
