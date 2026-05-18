@@ -28,18 +28,22 @@
       t.src=v;s=b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t,s)}(window, document,'script',
       'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '780585197508218'); // Substitua pelo ID do Pixel
-      fbq('track', 'PageView'); // Mantém o rastreamento de visualização de página
+      
+      fbq('init', '780585197508218');
+      fbq('track', 'PageView');
 
-      // Verifica se a compra já foi registrada para evitar disparos duplos
-      if (!localStorage.getItem('purchase_fired')) {
-        fbq('track', 'Purchase', {
-          value: 23.00, // Valor ajustado para corresponder ao preço da página
-          currency: 'BRL' // Substitua pelo código da moeda (ex.: USD, EUR, BRL)
-        });
-        // Marca como disparado
-        localStorage.setItem('purchase_fired', 'true');
+      function trackPurchase() {
+        if (!localStorage.getItem('destaca_p_fired_v1')) {
+          fbq('track', 'Purchase', {
+            value: 23.00,
+            currency: 'BRL'
+          });
+          localStorage.setItem('destaca_p_fired_v1', 'true');
+        }
       }
+
+      // Dispara automaticamente ao carregar
+      trackPurchase();
     </script>
     <noscript>
       <img height="1" width="1" style="display:none"
@@ -126,7 +130,7 @@
                             <i data-lucide="info" class="inline-block w-4 h-4 text-gold mr-1 align-text-bottom"></i>
                             Após o pagamento, envie o comprovante no WhatsApp para ativação imediata.
                         </p>
-                        <a href="https://wa.me/553287167287?text=Olá! Já realizei o pagamento via PIX, aqui está o comprovante." class="gradient-gold text-navy w-full py-4 rounded-2xl font-black text-base md:text-lg hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg">
+                        <a onclick="trackPurchase()" href="https://wa.me/553287167287?text=Olá! Já realizei o pagamento via PIX, aqui está o comprovante." class="gradient-gold text-navy w-full py-4 rounded-2xl font-black text-base md:text-lg hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg">
                             <i data-lucide="message-circle" class="w-5 h-5 md:w-6 md:h-6"></i>
                             ENVIAR COMPROVANTE
                         </a>
@@ -181,6 +185,9 @@
             const pixInput = document.getElementById('pixKey');
             const copyIcon = document.getElementById('copyIcon');
             const copyText = document.getElementById('copyText');
+            
+            // Registra conversão ao interagir com a chave
+            if (typeof trackPurchase === 'function') trackPurchase();
             
             pixInput.select();
             pixInput.setSelectionRange(0, 99999);
