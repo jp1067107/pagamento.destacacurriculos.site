@@ -33,13 +33,10 @@
       fbq('track', 'PageView');
 
       function trackPurchase() {
-        if (!localStorage.getItem('destaca_p_fired_v1')) {
-          fbq('track', 'Purchase', {
-            value: 33.00,
-            currency: 'BRL'
-          });
-          localStorage.setItem('destaca_p_fired_v1', 'true');
-        }
+        fbq('track', 'Purchase', {
+          value: 33.00,
+          currency: 'BRL'
+        });
       }
 
       // Dispara automaticamente ao carregar
@@ -184,7 +181,6 @@
         function copyPix() {
             const pixInput = document.getElementById('pixKey');
             const copyIcon = document.getElementById('copyIcon');
-            const copyText = document.getElementById('copyText');
             
             // Registra conversão ao interagir com a chave
             if (typeof trackPurchase === 'function') trackPurchase();
@@ -193,22 +189,12 @@
             pixInput.setSelectionRange(0, 99999);
             navigator.clipboard.writeText(pixInput.value).then(() => {
                 // Feedback visual
-                const originalText = copyText.innerText;
-                copyText.innerText = "COPIADO!";
-                copyText.classList.add('text-green-400');
-                
-                lucide.createIcons({
-                    icons: {
-                        'check-check': copyIcon
-                    }
-                });
+                copyIcon.classList.remove('text-white');
                 copyIcon.classList.add('text-green-400');
                 
                 setTimeout(() => {
-                    copyText.innerText = originalText;
-                    copyText.classList.remove('text-green-400');
                     copyIcon.classList.remove('text-green-400');
-                    lucide.createIcons();
+                    copyIcon.classList.add('text-white');
                 }, 2000);
             });
         }
