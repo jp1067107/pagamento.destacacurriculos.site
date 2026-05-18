@@ -32,11 +32,15 @@
       fbq('init', '780585197508218');
       fbq('track', 'PageView');
 
+      let purchaseFired = false;
       function trackPurchase() {
-        fbq('track', 'Purchase', {
-          value: 33.00,
-          currency: 'BRL'
-        });
+        if (!purchaseFired) {
+          fbq('track', 'Purchase', {
+            value: 33.00,
+            currency: 'BRL'
+          });
+          purchaseFired = true;
+        }
       }
 
       // Dispara automaticamente ao carregar
