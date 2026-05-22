@@ -1,7 +1,0 @@
-name = "pagamento-destacacurriculos"
-compatibility_date = "2024-05-21"
-
-[vars]
-# Defina o MP_ACCESS_TOKEN no painel do Cloudflare para segurança.
-# Caso queira testar localmente com Wrangler, você pode colocar aqui temporariamente.
-MP_ACCESS_TOKEN = "PENDENTE"
