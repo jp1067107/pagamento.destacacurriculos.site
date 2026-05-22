@@ -1,4 +1,5 @@
 export async function onRequestPost(context) {
+    // v1.0.2 - Checkout Transparente PIX - Integrado com Cloudflare Functions
     const { request, env } = context;
 
     try {
