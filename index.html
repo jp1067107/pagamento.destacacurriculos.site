@@ -102,17 +102,22 @@
                         </div>
 
                         <div class="space-y-4">
-                            <!-- Botão Direto Mercado Pago -->
-                            <a onclick="trackCheckout()" href="https://mpago.la/1wRptTW" target="_self" class="bg-[#009EE3] text-white w-full py-4 rounded-xl font-bold text-base hover:bg-[#0088cc] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M14.6 2.00049H9.39999C8.94999 2.00049 8.60001 2.35049 8.60001 2.80049V6.20049C8.60001 6.65049 8.94999 7.00049 9.39999 7.00049H11.7C11.95 7.00049 12.1 7.20049 12.1 7.50049V15.7005C12.1 15.9505 11.95 16.1005 11.7 16.1005H9.39999C8.94999 16.1005 8.60001 16.4505 8.60001 16.9005V20.3005C8.60001 20.7505 8.94999 21.1005 9.39999 21.1005H14.6C15.05 21.1005 15.4 20.7505 15.4 20.3005V16.9005C15.4 16.4505 15.05 16.1005 14.6 16.1005H12.3C12.05 16.1005 11.9 15.9005 11.9 15.6005V7.40049C11.9 7.15049 12.05 7.00049 12.3 7.00049H14.6C15.05 7.00049 15.4 6.65049 15.4 6.20049V2.80049C15.4 2.35049 15.05 2.00049 14.6 2.00049Z" fill="white"/>
-                                </svg>
-                                Pagar com Mercado Pago
-                            </a>
+                            <!-- Botão Dinâmico via Cloudflare Functions -->
+                            <button id="payButton" onclick="handlePayment()" class="bg-[#009EE3] text-white w-full py-4 rounded-xl font-bold text-base hover:bg-[#0088cc] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                                <div id="btnContent" class="flex items-center gap-3">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14.6 2.00049H9.39999C8.94999 2.00049 8.60001 2.35049 8.60001 2.80049V6.20049C8.60001 6.65049 8.94999 7.00049 9.39999 7.00049H11.7C11.95 7.00049 12.1 7.20049 12.1 7.50049V15.7005C12.1 15.9505 11.95 16.1005 11.7 16.1005H9.39999C8.94999 16.1005 8.60001 16.4505 8.60001 16.9005V20.3005C8.60001 20.7505 8.94999 21.1005 9.39999 21.1005H14.6C15.05 21.1005 15.4 20.7505 15.4 20.3005V16.9005C15.4 16.4505 15.05 16.1005 14.6 16.1005H12.3C12.05 16.1005 11.9 15.9005 11.9 15.6005V7.40049C11.9 7.15049 12.05 7.00049 12.3 7.00049H14.6C15.05 7.00049 15.4 6.65049 15.4 6.20049V2.80049C15.4 2.35049 15.05 2.00049 14.6 2.00049Z" fill="white"/>
+                                    </svg>
+                                    Pagar com Mercado Pago
+                                </div>
+                                <div id="btnLoader" class="hidden animate-spin">
+                                    <i data-lucide="loader-2" class="w-6 h-6"></i>
+                                </div>
+                            </button>
 
                             <div class="flex items-center justify-center gap-2 text-slate-500 text-[10px] italic mt-4">
                                 <i data-lucide="shield-check" class="w-3 h-3 md:w-4 md:h-4 text-green-500"></i>
-                                Ambiente Seguro Mercado Pago
+                                Pagamento Seguro & Pix Disponível
                             </div>
                         </div>
                     </div>
@@ -139,6 +144,49 @@
 
     <script>
         lucide.createIcons();
+
+        async function handlePayment() {
+            const btn = document.getElementById('payButton');
+            const content = document.getElementById('btnContent');
+            const loader = document.getElementById('btnLoader');
+
+            // Feedback Visual
+            btn.disabled = true;
+            content.classList.add('hidden');
+            loader.classList.remove('hidden');
+
+            // Rastreamento InitiateCheckout
+            if (typeof fbq === 'function') {
+                fbq('track', 'InitiateCheckout', {
+                    value: 23.00,
+                    currency: 'BRL'
+                });
+            }
+
+            try {
+                const response = await fetch('/api/pagamento', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    alert('Erro ao processar pagamento. Tente novamente ou chame no suporte.');
+                    btn.disabled = false;
+                    content.classList.remove('hidden');
+                    loader.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                alert('Erro de conexão. Verifique sua internet.');
+                btn.disabled = false;
+                content.classList.remove('hidden');
+                loader.classList.add('hidden');
+            }
+        }
 
         let currentRating = 0;
 
