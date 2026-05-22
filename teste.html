@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagamento - Destaca Currículos</title>
+    <title>Teste de Diagnóstico - R$ 5,00</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -16,20 +16,8 @@
         .gradient-gold { background: linear-gradient(135deg, #C5A059 0%, #E8D099 50%, #C5A059 100%); }
         .star-btn svg { transition: all 0.3s ease; fill: transparent !important; }
         .star-btn.active svg { fill: #C5A059 !important; stroke: #C5A059 !important; }
-        
-        /* Custom Loading Spinner */
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top: 3px solid #fff;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        .spinner { border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top: 3px solid #fff; width: 24px; height: 24px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 
     <!-- Meta Pixel Code -->
@@ -48,7 +36,6 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=780585197508218&ev=PageView&noscript=1"
     /></noscript>
-    <!-- End Meta Pixel Code -->
 </head>
 <body class="bg-gray-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
@@ -56,7 +43,7 @@
         <div class="container mx-auto px-4 flex justify-center">
             <div class="flex items-center gap-2">
                 <i data-lucide="award" class="text-gold w-8 h-8"></i>
-                <span class="text-navy font-black text-xl tracking-tighter uppercase">Destaca <span class="text-gold">Currículos</span></span>
+                <span class="text-navy font-black text-xl tracking-tighter uppercase">Teste <span class="text-gold">Diagnóstico</span></span>
             </div>
         </div>
     </header>
@@ -66,11 +53,10 @@
             <div class="bg-navy rounded-[2.5rem] p-8 md:p-10 border-4 border-gold shadow-2xl relative overflow-hidden">
                 <div class="relative z-10">
                     
-                    <!-- FORMULÁRIO DE PAGAMENTO -->
                     <div id="paymentFormArea">
                         <div class="text-center mb-8">
-                            <h1 class="text-2xl md:text-3xl font-black text-white mb-2 uppercase">Checkout Seguro</h1>
-                            <p class="text-slate-300 text-sm font-light">Preencha os dados para gerar seu PIX</p>
+                            <h1 class="text-2xl md:text-3xl font-black text-white mb-2 uppercase">Checkout Teste</h1>
+                            <p class="text-slate-300 text-sm font-light">Valor simbólico para diagnóstico: R$ 5,00</p>
                         </div>
 
                         <form id="pixForm" class="space-y-4">
@@ -78,12 +64,10 @@
                                 <label class="text-[10px] font-bold text-slate-400 uppercase ml-2 tracking-wider">Nome Completo</label>
                                 <input type="text" id="full_name" required placeholder="Ex: João Silva" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl text-white outline-none focus:border-gold transition-all">
                             </div>
-
                             <div>
                                 <label class="text-[10px] font-bold text-slate-400 uppercase ml-2 tracking-wider">E-mail</label>
                                 <input type="email" id="email" required placeholder="Ex: joao@email.com" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl text-white outline-none focus:border-gold transition-all">
                             </div>
-
                             <div>
                                 <label class="text-[10px] font-bold text-slate-400 uppercase ml-2 tracking-wider">CPF</label>
                                 <input type="text" id="cpf" required placeholder="000.000.000-00" maxlength="14" class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl text-white outline-none focus:border-gold transition-all">
@@ -91,82 +75,56 @@
 
                             <div class="bg-white/5 rounded-2xl p-4 border border-white/5 flex items-center justify-between mb-6">
                                 <span class="text-slate-400 text-sm">Total a pagar:</span>
-                                <span class="text-white font-black text-xl">R$ 2,00</span>
+                                <span class="text-white font-black text-xl">R$ 5,00</span>
                             </div>
 
                             <button type="submit" id="btnSubmit" class="gradient-gold text-navy w-full py-4 rounded-2xl font-black text-lg hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg">
-                                <span id="btnText">GERAR PIX</span>
+                                <span id="btnText">GERAR PIX DE TESTE</span>
                                 <div id="btnSpinner" class="hidden spinner"></div>
                             </button>
                         </form>
                     </div>
 
-                    <!-- ÁREA DO QR CODE (INICIALMENTE OCULTA) -->
                     <div id="qrCodeArea" class="hidden text-center">
                         <div class="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
                             <i data-lucide="check" class="text-navy w-10 h-10 stroke-[3px]"></i>
                         </div>
-                        
                         <h2 class="text-2xl font-black text-white mb-2 uppercase">PIX GERADO!</h2>
-                        <p class="text-slate-300 text-sm mb-8">Escaneie o código ou copie a chave abaixo</p>
-
                         <div class="bg-white p-4 rounded-3xl shadow-2xl inline-block mb-8 border-4 border-gold">
                             <img id="qrCodeImg" src="" alt="QR Code PIX" class="w-48 h-48">
                         </div>
-
                         <div class="space-y-4 text-left">
-                            <label class="text-[10px] font-bold text-slate-400 uppercase ml-2 tracking-wider">Código PIX Copia e Cola</label>
                             <div class="flex items-center gap-2 bg-white/5 border border-white/10 p-4 rounded-2xl">
                                 <input type="text" readonly id="pixCode" class="bg-transparent border-none outline-none text-white font-medium text-xs flex-grow truncate">
-                                <button onclick="copyPixCode()" id="btnCopy" class="bg-gold text-navy p-2 rounded-xl hover:bg-yellow-500 transition active:scale-95 shrink-0" title="Copiar">
+                                <button onclick="copyPixCode()" id="btnCopy" class="bg-gold text-navy p-2 rounded-xl">
                                     <i data-lucide="copy" class="w-4 h-4" id="copyIcon"></i>
                                 </button>
                             </div>
                         </div>
-
-                        <p class="text-gold text-[10px] font-bold mt-8 uppercase tracking-widest flex items-center justify-center gap-2">
-                            <i data-lucide="clock" class="w-3 h-3"></i> Aguardando confirmação...
-                        </p>
                     </div>
-
                 </div>
             </div>
-            
-            <p class="text-center text-slate-400 text-[10px] mt-8 uppercase tracking-widest font-bold">
-                &copy; 2026 Destaca Currículos - Todos os direitos reservados.
-            </p>
         </div>
     </main>
 
     <script>
         lucide.createIcons();
-
-        // Máscara de CPF
         const cpfInput = document.getElementById('cpf');
         cpfInput.addEventListener('input', (e) => {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 11) value = value.slice(0, 11);
-            
             value = value.replace(/(\d{3})(\d)/, '$1.$2');
             value = value.replace(/(\d{3})(\d)/, '$1.$2');
             value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-            
             e.target.value = value;
         });
 
-        // Manipulação do Formulário
-        const pixForm = document.getElementById('pixForm');
-        pixForm.addEventListener('submit', async (e) => {
+        document.getElementById('pixForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const btn = document.getElementById('btnSubmit');
-            const btnText = document.getElementById('btnText');
-            const btnSpinner = document.getElementById('btnSpinner');
-
-            // Estado de Loading
             btn.disabled = true;
-            btnText.classList.add('hidden');
-            btnSpinner.classList.remove('hidden');
+            document.getElementById('btnText').classList.add('hidden');
+            document.getElementById('btnSpinner').classList.remove('hidden');
 
             const formData = {
                 full_name: document.getElementById('full_name').value,
@@ -180,57 +138,37 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
                 });
-
                 const data = await response.json();
-
                 if (response.ok) {
-                    // Dispara o evento de InitiateCheckout pro Facebook apenas após sucesso real
                     if (typeof fbq === 'function') {
-                        fbq('track', 'InitiateCheckout', {
-                            value: 2.00,
-                            currency: 'BRL'
-                        });
+                        fbq('track', 'InitiateCheckout', { value: 5.00, currency: 'BRL' });
                     }
-
-                    // Sucesso: Ocultar form e mostrar QR Code
                     document.getElementById('paymentFormArea').classList.add('hidden');
                     document.getElementById('qrCodeArea').classList.remove('hidden');
-                    
                     document.getElementById('qrCodeImg').src = `data:image/png;base64,${data.qr_code_base64}`;
                     document.getElementById('pixCode').value = data.qr_code;
                 } else {
-                    alert('Erro ao gerar PIX: ' + (data.error || 'Tente novamente.'));
+                    alert('Erro: ' + (data.error || 'Falha ao gerar PIX.'));
+                    console.error(data);
                     btn.disabled = false;
-                    btnText.classList.remove('hidden');
-                    btnSpinner.classList.add('hidden');
+                    document.getElementById('btnText').classList.remove('hidden');
+                    document.getElementById('btnSpinner').classList.add('hidden');
                 }
             } catch (err) {
-                console.error(err);
-                alert('Erro de conexão. Verifique sua internet.');
+                alert('Erro de conexão.');
                 btn.disabled = false;
-                btnText.classList.remove('hidden');
-                btnSpinner.classList.add('hidden');
+                document.getElementById('btnText').classList.remove('hidden');
+                document.getElementById('btnSpinner').classList.add('hidden');
             }
         });
 
-        // Função Copiar PIX
         function copyPixCode() {
             const input = document.getElementById('pixCode');
-            const btn = document.getElementById('btnCopy');
-            const icon = document.getElementById('copyIcon');
-
             input.select();
-            input.setSelectionRange(0, 9999);
             navigator.clipboard.writeText(input.value).then(() => {
-                const originalHTML = btn.innerHTML;
-                btn.innerHTML = '<span class="text-[10px] font-bold">COPIADO!</span>';
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                    lucide.createIcons();
-                }, 2000);
+                alert('Código copiado!');
             });
         }
     </script>
-    <!-- Versão do Deploy: 1.0.1 - Checkout Transparente PIX -->
 </body>
 </html>
