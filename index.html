@@ -17,7 +17,34 @@
         .star-btn svg { transition: all 0.3s ease; fill: transparent !important; }
         .star-btn.active svg { fill: #C5A059 !important; stroke: #C5A059 !important; }
     </style>
-    <script src="https://sdk.mercadopago.com/js/v2"></script>
+
+    <!-- Meta Pixel Code -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      
+      fbq('init', '780585197508218');
+      fbq('track', 'PageView');
+
+      function trackCheckout() {
+          fbq('track', 'InitiateCheckout', {
+              value: 23.00,
+              currency: 'BRL'
+          });
+      }
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=780585197508218&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
+
 </head>
 <body class="bg-gray-50 text-slate-800 antialiased min-h-screen flex flex-col">
 
@@ -75,12 +102,17 @@
                         </div>
 
                         <div class="space-y-4">
-                            <!-- Mercado Pago Button Container -->
-                            <div id="wallet_container" class="w-full"></div>
+                            <!-- Botão Direto Mercado Pago -->
+                            <a onclick="trackCheckout()" href="https://mpago.la/1wRptTW" target="_self" class="bg-[#009EE3] text-white w-full py-4 rounded-xl font-bold text-base hover:bg-[#0088cc] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M14.6 2.00049H9.39999C8.94999 2.00049 8.60001 2.35049 8.60001 2.80049V6.20049C8.60001 6.65049 8.94999 7.00049 9.39999 7.00049H11.7C11.95 7.00049 12.1 7.20049 12.1 7.50049V15.7005C12.1 15.9505 11.95 16.1005 11.7 16.1005H9.39999C8.94999 16.1005 8.60001 16.4505 8.60001 16.9005V20.3005C8.60001 20.7505 8.94999 21.1005 9.39999 21.1005H14.6C15.05 21.1005 15.4 20.7505 15.4 20.3005V16.9005C15.4 16.4505 15.05 16.1005 14.6 16.1005H12.3C12.05 16.1005 11.9 15.9005 11.9 15.6005V7.40049C11.9 7.15049 12.05 7.00049 12.3 7.00049H14.6C15.05 7.00049 15.4 6.65049 15.4 6.20049V2.80049C15.4 2.35049 15.05 2.00049 14.6 2.00049Z" fill="white"/>
+                                </svg>
+                                Pagar com Mercado Pago
+                            </a>
 
                             <div class="flex items-center justify-center gap-2 text-slate-500 text-[10px] italic mt-4">
                                 <i data-lucide="shield-check" class="w-3 h-3 md:w-4 md:h-4 text-green-500"></i>
-                                Pagamento Processado pelo Mercado Pago
+                                Ambiente Seguro Mercado Pago
                             </div>
                         </div>
                     </div>
@@ -107,45 +139,6 @@
 
     <script>
         lucide.createIcons();
-
-        // Configuração do Mercado Pago
-        const mp = new MercadoPago('APP_USR-ef2695cc-b192-4314-89d5-1d0712cd6502', {
-            locale: 'pt-BR'
-        });
-        const bricksBuilder = mp.bricks();
-
-        const renderWalletBrick = async (bricksBuilder) => {
-            const settings = {
-                initialization: {
-                    preferenceId: '1254823383144650',
-                    redirectMode: 'self'
-                },
-                customization: {
-                    texts: {
-                        valueProp: 'smart_option',
-                    },
-                },
-                callbacks: {
-                    onReady: () => {
-                        console.log('Brick ready');
-                    },
-                    onSubmit: (formData) => {
-                        // Brick handles redirection
-                    },
-                    onError: (error) => {
-                        console.error('Brick error:', error);
-                        // Fallback: se o botão falhar, podemos mostrar um alerta ou link
-                    },
-                },
-            };
-            window.walletBrickController = await bricksBuilder.create(
-                'wallet',
-                'wallet_container',
-                settings
-            );
-        };
-
-        renderWalletBrick(bricksBuilder);
 
         let currentRating = 0;
 
