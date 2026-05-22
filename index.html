@@ -112,18 +112,40 @@
         const mp = new MercadoPago('APP_USR-ef2695cc-b192-4314-89d5-1d0712cd6502', {
             locale: 'pt-BR'
         });
+        const bricksBuilder = mp.bricks();
 
-        mp.bricks().create("wallet", "wallet_container", {
-            initialization: {
-                preferenceId: "1254823383144650",
-                redirectMode: "modal"
-            },
-            customization: {
-                texts: {
-                    valueProp: 'smart_option',
+        const renderWalletBrick = async (bricksBuilder) => {
+            const settings = {
+                initialization: {
+                    preferenceId: '1254823383144650',
+                    redirectMode: 'self'
                 },
-            },
-        });
+                customization: {
+                    texts: {
+                        valueProp: 'smart_option',
+                    },
+                },
+                callbacks: {
+                    onReady: () => {
+                        console.log('Brick ready');
+                    },
+                    onSubmit: (formData) => {
+                        // Brick handles redirection
+                    },
+                    onError: (error) => {
+                        console.error('Brick error:', error);
+                        // Fallback: se o botão falhar, podemos mostrar um alerta ou link
+                    },
+                },
+            };
+            window.walletBrickController = await bricksBuilder.create(
+                'wallet',
+                'wallet_container',
+                settings
+            );
+        };
+
+        renderWalletBrick(bricksBuilder);
 
         let currentRating = 0;
 
