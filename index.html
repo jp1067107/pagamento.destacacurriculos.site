@@ -158,14 +158,6 @@
         const pixForm = document.getElementById('pixForm');
         pixForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            // Dispara o evento de InitiateCheckout pro Facebook
-            if (typeof fbq === 'function') {
-                fbq('track', 'InitiateCheckout', {
-                    value: 23.00,
-                    currency: 'BRL'
-                });
-            }
             
             const btn = document.getElementById('btnSubmit');
             const btnText = document.getElementById('btnText');
@@ -192,6 +184,14 @@
                 const data = await response.json();
 
                 if (response.ok) {
+                    // Dispara o evento de InitiateCheckout pro Facebook apenas após sucesso real
+                    if (typeof fbq === 'function') {
+                        fbq('track', 'InitiateCheckout', {
+                            value: 23.00,
+                            currency: 'BRL'
+                        });
+                    }
+
                     // Sucesso: Ocultar form e mostrar QR Code
                     document.getElementById('paymentFormArea').classList.add('hidden');
                     document.getElementById('qrCodeArea').classList.remove('hidden');
