@@ -91,7 +91,7 @@
 
                             <div class="bg-white/5 rounded-2xl p-4 border border-white/5 flex items-center justify-between mb-6">
                                 <span class="text-slate-400 text-sm">Total a pagar:</span>
-                                <span class="text-white font-black text-xl">R$ 1,00</span>
+                                <span class="text-white font-black text-xl">R$ 2,00</span>
                             </div>
 
                             <button type="submit" id="btnSubmit" class="gradient-gold text-navy w-full py-4 rounded-2xl font-black text-lg hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 shadow-lg">
@@ -187,7 +187,7 @@
                     // Dispara o evento de InitiateCheckout pro Facebook apenas após sucesso real
                     if (typeof fbq === 'function') {
                         fbq('track', 'InitiateCheckout', {
-                            value: 1.00,
+                            value: 2.00,
                             currency: 'BRL'
                         });
                     }

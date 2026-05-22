@@ -25,8 +25,8 @@ export async function onRequestPost(context) {
         const lastName = nameParts.slice(1).join(' ') || 'Sobrenome';
 
         const paymentData = {
-            transaction_amount: 1.00,
-            description: "Teste de Diagnóstico (R$ 1,00)",
+            transaction_amount: 2.00,
+            description: "Teste de Diagnóstico (R$ 2,00)",
             payment_method_id: "pix",
             payer: {
                 email: email,
