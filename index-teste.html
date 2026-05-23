@@ -6,16 +6,49 @@
     <title>Teste de Diagnóstico - R$ 5,00</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        navy: {
+                            DEFAULT: '#0B132B',
+                            900: '#0B132B',
+                            800: '#111D4A',
+                            700: '#1A2C6B',
+                            600: '#2A4396'
+                        },
+                        gold: {
+                            DEFAULT: '#D4AF37',
+                            light: '#F3E5AB',
+                            dark: '#AA8C2C',
+                        }
+                    },
+                    boxShadow: {
+                        'gold': '0 4px 20px -2px rgba(212, 175, 55, 0.3)',
+                        'gold-lg': '0 10px 30px -5px rgba(212, 175, 55, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Montserrat', sans-serif; }
-        .bg-navy { background-color: #001A3D; }
-        .text-gold { color: #C5A059; }
-        .bg-gold { background-color: #C5A059; }
-        .border-gold { border-color: #C5A059; }
-        .gradient-gold { background: linear-gradient(135deg, #C5A059 0%, #E8D099 50%, #C5A059 100%); }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-heading { font-family: 'Outfit', sans-serif; }
+        .bg-navy { background-color: #0B132B; }
+        .text-gold { color: #D4AF37; }
+        .bg-gold { background-color: #D4AF37; }
+        .border-gold { border-color: #D4AF37; }
+        .gradient-gold { background: linear-gradient(135deg, #D4AF37 0%, #AA8C2C 100%); }
         .star-btn svg { transition: all 0.3s ease; fill: transparent !important; }
-        .star-btn.active svg { fill: #C5A059 !important; stroke: #C5A059 !important; }
+        .star-btn.active svg { fill: #D4AF37 !important; stroke: #D4AF37 !important; }
         .spinner { border: 3px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top: 3px solid #fff; width: 24px; height: 24px; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
